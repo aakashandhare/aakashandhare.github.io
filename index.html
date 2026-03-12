@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aakash Andhare — Senior TA Leader</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --blue: #1a3a6b;
+    --accent: #c9a84c;
+    --light: #f4f1eb;
+    --white: #ffffff;
+    --muted: #8a9ab5;
+    --card: #162040;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 10%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(26,58,107,0.5) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 900;
+    line-height: 1.0;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-name span { color: var(--accent); }
+
+  .hero-title {
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 48px;
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .stat { border-left: 2px solid var(--accent); padding-left: 16px; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeUp 0.8s ease 1.2s forwards;
+  }
+  .scroll-hint span { font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* ── PROBLEM SECTION ── */
+  .problem {
+    background: var(--light);
+    color: var(--navy);
+    padding: 100px 10%;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .problem h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 48px;
+    max-width: 700px;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2px;
+  }
+
+  .problem-card {
+    background: var(--navy);
+    color: var(--white);
+    padding: 36px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  .problem-card:hover { transform: translateY(-4px); }
+
+  .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--accent);
+  }
+
+  .problem-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.15);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .problem-card h3 { font-size: 16px; font-weight: 500; margin-bottom: 10px; color: var(--accent); }
+  .problem-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  /* ── PROOF SECTION ── */
+  .proof {
+    background: var(--navy);
+    padding: 100px 10%;
+  }
+
+  .proof h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .proof-subtitle {
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 60px;
+    max-width: 500px;
+  }
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  .proof-card {
+    background: var(--card);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 36px;
+    border-radius: 2px;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .proof-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+
+  .proof-icon { font-size: 28px; margin-bottom: 16px; }
+  .proof-card h3 { font-size: 15px; font-weight: 500; margin-bottom: 10px; color: var(--accent); }
+  .proof-card p { font-size: 13px; color: var(--muted); line-height: 1.8; }
+  .proof-card strong { color: var(--white); }
+
+  /* ── EXPERIENCE TIMELINE ── */
+  .experience {
+    background: var(--blue);
+    padding: 100px 10%;
+  }
+
+  .experience h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 48px);
+    margin-bottom: 60px;
+  }
+
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    padding: 0 0 48px 40px;
+    position: relative;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 6px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--blue);
+  }
+
+  .timeline-dates { font-size: 11px; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .timeline-role { font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+  .timeline-company { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+  .timeline-desc { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 600px; }
+
+  /* ── CLIENTS ── */
+  .clients {
+    background: var(--navy);
+    padding: 80px 10%;
+    text-align: center;
+  }
+
+  .clients h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    margin-bottom: 12px;
+  }
+
+  .clients-sub { color: var(--muted); margin-bottom: 48px; font-size: 14px; }
+
+  .clients-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .client-chip {
+    background: var(--card);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 8px 18px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+
+  .client-chip:hover {
+    border-color: var(--accent);
+    color: var(--white);
+    background: rgba(201,168,76,0.08);
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: var(--light);
+    color: var(--navy);
+    padding: 100px 10%;
+    text-align: center;
+  }
+
+  .contact h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    margin-bottom: 16px;
+  }
+
+  .contact p { color: #555; font-size: 16px; max-width: 500px; margin: 0 auto 48px; line-height: 1.8; }
+
+  .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  .btn {
+    padding: 14px 32px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: var(--navy);
+    color: var(--white);
+    border: 2px solid var(--navy);
+  }
+  .btn-primary:hover { background: var(--blue); border-color: var(--blue); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--navy);
+    border: 2px solid var(--navy);
+  }
+  .btn-outline:hover { background: var(--navy); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080f1e;
+    padding: 24px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer p { font-size: 12px; color: var(--muted); }
+  .footer-name { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .hero { padding: 60px 6%; }
+    .hero-stats { gap: 28px; }
+    .problem, .proof, .experience, .clients, .contact { padding: 60px 6%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-tag">Senior Talent Acquisition Leader · Hyderabad</p>
+  <h1 class="hero-name">Aakash<br><span>Andhare</span></h1>
+  <p class="hero-title">15 Years · 20+ Global Organisations · GCC & Enterprise Hiring Expert</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">30%</div>
+      <div class="stat-label">TAT Reduction</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Organisations Served</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100+</div>
+      <div class="stat-label">Annual Hires Delivered</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <p class="section-label">The Problem I Solve</p>
+  <h2>Growing companies hit the same TA wall. I've spent 15 years breaking it down.</h2>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-num">01</div>
+      <h3>Time-to-Fill Pressure</h3>
+      <p>Roles stay open too long. Business suffers. Managers lose faith in TA. I rebuild sourcing frameworks that move fast without compromising quality.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">02</div>
+      <h3>Hiring Manager Disconnect</h3>
+      <p>TA and the business speak different languages. I bridge that gap — translating headcount plans into hiring strategies everyone owns.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">03</div>
+      <h3>Inconsistent Candidate Quality</h3>
+      <p>No structured screening. No clear bar. Every recruiter doing it differently. I build frameworks that standardise quality at scale.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">04</div>
+      <h3>TA Function That Doesn't Scale</h3>
+      <p>What worked at 200 people breaks at 500. I've built TA functions from the ground up — and rebuilt ones that had outgrown themselves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="proof">
+  <p class="section-label">What I Bring</p>
+  <h2>Not theory. Actual results.</h2>
+  <p class="proof-subtitle">Every claim below comes from real work at real organisations.</p>
+  <div class="proof-grid">
+    <div class="proof-card">
+      <div class="proof-icon">⚡</div>
+      <h3>30% Faster Time-to-Fill</h3>
+      <p>Achieved at SA Technologies through <strong>ATS optimisation, sourcing mix redesign, and structured hiring workflows</strong> — sustained across 7 years.</p>
+    </div>
+    <div class="proof-card">
+      <div class="proof-icon">🎯</div>
+      <h3>100+ Hires Annually</h3>
+      <p>Consistently delivered <strong>100+ annual hires</strong> across technical and non-technical functions while maintaining quality benchmarks.</p>
+    </div>
+    <div class="proof-card">
+      <div class="proof-icon">👥</div>
+      <h3>Teams That Stay</h3>
+      <p>Built and retained recruitment teams of up to 15 members with <strong>less than 5% annual attrition</strong> over 7 years.</p>
+    </div>
+    <div class="proof-card">
+      <div class="proof-icon">🏆</div>
+      <h3>Recognised Performer</h3>
+      <p>Awarded <strong>Valuable Contribution and Employee of the Month</strong> multiple times across tenures for consistent high performance.</p>
+    </div>
+    <div class="proof-card">
+      <div class="proof-icon">🌐</div>
+      <h3>Embedded TA Partner</h3>
+      <p>Functioned as <strong>strategic TA partner for 20+ global enterprises</strong> — from workforce planning through to offer management.</p>
+    </div>
+    <div class="proof-card">
+      <div class="proof-icon">📊</div>
+      <h3>Data-Driven by Default</h3>
+      <p>Built real-time dashboards tracking <strong>pipeline health, sourcing efficiency, and recruiter productivity</strong> — enabling evidence-based decisions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience">
+  <p class="section-label">Career Journey</p>
+  <h2>Where I've built and what I've built.</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dates">Feb 2025 — Present</div>
+      <div class="timeline-role">Sr. Manager — Talent Acquisition</div>
+      <div class="timeline-company">Jobizza Technologies · Hyderabad / Pune</div>
+      <div class="timeline-desc">Designed organisation-wide TA strategy. Leading 5-member team. Integrated AI sourcing tools reducing unqualified pipeline by 25%.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dates">Apr 2022 — Feb 2025</div>
+      <div class="timeline-role">Director — Talent Acquisition & HR Operations</div>
+      <div class="timeline-company">Vision Data Analytics · Hyderabad</div>
+      <div class="timeline-desc">Led TA operations across 3 business verticals with a 15-member team. Drove workforce forecasting aligned with organisational growth targets.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dates">Dec 2021 — Feb 2022</div>
+      <div class="timeline-role">Sr. General Manager — Talent Acquisition</div>
+      <div class="timeline-company">BOB eProcure Solutions · Hyderabad</div>
+      <div class="timeline-desc">Defined integrated sourcing strategy. Facilitated cross-functional alignment between HR, TA, and business stakeholders.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dates">Dec 2013 — Mar 2021</div>
+      <div class="timeline-role">Head — Talent Acquisition & Business Partnering</div>
+      <div class="timeline-company">SA Technologies · Hyderabad</div>
+      <div class="timeline-desc">7 years. 20+ global clients. 30% TAT reduction. Team of 15. Less than 5% attrition. The role that built everything.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dates">2011 — 2013</div>
+      <div class="timeline-role">Recruitment Business Partner</div>
+      <div class="timeline-company">Link My Career Consultancy · Hyderabad</div>
+      <div class="timeline-desc">End-to-end hiring for IT and non-IT roles across multiple corporate accounts.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients">
+  <p class="section-label">Organisations I've Partnered With</p>
+  <h2>22 Global Organisations. One City. 15 Years.</h2>
+  <p class="clients-sub">A selection of enterprises I've served as embedded TA partner in Hyderabad.</p>
+  <div class="clients-grid">
+    <div class="client-chip">Dassault Systems</div>
+    <div class="client-chip">EY</div>
+    <div class="client-chip">Dell</div>
+    <div class="client-chip">NTT Data</div>
+    <div class="client-chip">Whirlpool</div>
+    <div class="client-chip">Equinix</div>
+    <div class="client-chip">Bentley Systems</div>
+    <div class="client-chip">ZS Associates</div>
+    <div class="client-chip">Capita</div>
+    <div class="client-chip">Knorr-Bremse</div>
+    <div class="client-chip">ThyssenKrupp</div>
+    <div class="client-chip">KION Group</div>
+    <div class="client-chip">Trumpf</div>
+    <div class="client-chip">Steris</div>
+    <div class="client-chip">Sanmina</div>
+    <div class="client-chip">Medline</div>
+    <div class="client-chip">Incedo</div>
+    <div class="client-chip">Storable</div>
+    <div class="client-chip">Northern Marine</div>
+    <div class="client-chip">Newpark</div>
+    <div class="client-chip">Cloudmoyo</div>
+    <div class="client-chip">Storable</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <p class="section-label" style="color:var(--accent)">Let's Talk</p>
+  <h2>If your hiring function needs a reset — let's have a conversation.</h2>
+  <p>I'm currently exploring senior TA leadership opportunities in Hyderabad. If you're building or scaling a team and want someone who's done it before — I'd value 10 minutes of your time.</p>
+  <div class="contact-links">
+    <a class="btn btn-primary" href="mailto:andhare.aakash@gmail.com">andhare.aakash@gmail.com</a>
+    <a class="btn btn-outline" href="https://www.linkedin.com/in/aakashandhare/" target="_blank">LinkedIn Profile</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Aakash Andhare</span>
+  <p>Senior Talent Acquisition Leader · Hyderabad, India</p>
+  <p>© 2026 · Built to be shared</p>
+</footer>
+
+</body>
+</html>
